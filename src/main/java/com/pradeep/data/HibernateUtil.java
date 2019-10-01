@@ -43,16 +43,12 @@ public class HibernateUtil {
      */
     private static SessionFactory buildSessionFactory() {
         try{
-            Configuration configuration = new Configuration();
+            Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
 
-            /*This is not required as we mentioned this class in hibernate.cfg.xml
-            configuration.addAnnotatedClass(User.class);*/
-            // Don't use no arg constructor for
-            // buildSessionFactory.
-            sessionFactory = configuration
-                                    .buildSessionFactory(new StandardServiceRegistryBuilder()
-                                    //.applySettings(configuration.getProperties()) // optional
-                                    .build());
+            // This is not required as we mentioned this class in hibernate.cfg.xml
+            // configuration.addAnnotatedClass(User.class);
+
+            sessionFactory = configuration.buildSessionFactory();
         }
         catch(Exception e){
             e.printStackTrace();
