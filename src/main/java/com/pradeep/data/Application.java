@@ -16,6 +16,15 @@ public class Application {
 		session.beginTransaction();
 		//session.getTransaction().begin();
 
+        User user = getUser();
+
+        session.save(user);
+        session.getTransaction().commit();
+
+        session.close();
+	}
+
+    private static User getUser() {
         User user = new User();
         user.setBirthDate(new Date());
         user.setCreatedBy("kevin");
@@ -25,10 +34,6 @@ public class Application {
         user.setLastName("Bowersox");
         user.setLastUpdatedBy("kevin");
         user.setLastUpdatedDate(new Date());
-
-        session.save(user);
-        session.getTransaction().commit();
-
-        session.close();
-	}
+        return user;
+    }
 }

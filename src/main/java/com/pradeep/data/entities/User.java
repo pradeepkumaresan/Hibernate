@@ -47,7 +47,18 @@ public class User {
 	@Formula("lower(datediff(curdate(), birth_date)/365)")
 	private int age;
 
-	public int getAge() {
+	@Transient
+	private boolean valid;
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public int getAge() {
 		return age;
 	}
 

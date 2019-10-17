@@ -1,8 +1,6 @@
 package com.pradeep.data;
 
-import com.pradeep.data.entities.User;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -14,22 +12,24 @@ public class HibernateUtil {
     /**
      * Throw an exception from constructor is reflection is
      * trying to initialize the class.
+     *
      * @throws Exception
      */
     private HibernateUtil() throws Exception {
-        if(sessionFactory == null)
+        if (sessionFactory == null)
             throw new Exception();
     }
 
     /**
      * public thread safe method to build session factory lazily
      * for first time and return same instance subsequent times.
+     *
      * @return
      */
-    public static SessionFactory getSessionFactory(){
-        synchronized (HibernateUtil.class){
-            if(sessionFactory == null){
-                synchronized (HibernateUtil.class){
+    public static SessionFactory getSessionFactory() {
+        synchronized (HibernateUtil.class) {
+            if (sessionFactory == null) {
+                synchronized (HibernateUtil.class) {
                     buildSessionFactory();
                 }
             }
@@ -39,18 +39,18 @@ public class HibernateUtil {
 
     /**
      * private method to build session factory.
+     *
      * @return
      */
     private static SessionFactory buildSessionFactory() {
-        try{
+        try {
             Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
 
             // This is not required as we mentioned this class in hibernate.cfg.xml
             // configuration.addAnnotatedClass(User.class);
 
             sessionFactory = configuration.buildSessionFactory();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return sessionFactory;
